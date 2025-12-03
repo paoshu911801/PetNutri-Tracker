@@ -90,12 +90,12 @@ with col2:
 #飲食習慣
         pet_diet_options = ['平常吃什麼', '乾飼料', '濕飼料', '乾濕混合', '鮮食']
         pet_diet = st.selectbox('What Baby Eat', pet_diet_options, index = 0)
-        st.write('What Baby Eat A Day', pet_diet, key = 'pet_diet')
+        st.write('What Baby Eat A Day', key = 'pet_diet')
 
 #每日運動量
         pet_activity_options = ['低活動量', '中活動量', '高活動量']
         pet_activity = st.radio('pet_activity', pet_activity_options, index = 0)
-        st.write('參考以下說明判斷活動量喔', pet_activity, key = 'pet_activity')
+        st.write('參考以下說明判斷活動量喔', key = 'pet_activity')
 
 #每日活動量說明
         pet_activity_instruction = st.markdown(
