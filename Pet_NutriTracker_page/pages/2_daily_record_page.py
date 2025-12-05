@@ -5,9 +5,9 @@ import pandas as pd
 st.title("每日紀錄")
 
 #讀取 Excel 檔案
-excel_path = "營養Tracker｜資料庫｜final.xlsx"
+excel_path = "final_nutrition_data.csv"
 #哪一個sheet
-sheet_name = "資料庫"
+sheet_name = "工作表 1"
 
 try:
     df = pd.read_excel(excel_path, sheet_name=sheet_name)
