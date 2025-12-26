@@ -30,7 +30,7 @@ food_option = df["品項"].astype(str).str.strip()
 food_option = food_option[(food_option !="") & (food_option !="0") & (food_option !="-")]
 food_option = sorted(food_option.unique()) #去掉重複的值
 food_option = st.selectbox("食物品項", food_option)
-weight = st.number_input("請輸入重量 (g)", min_value=0.0, step=1.0)
+weight = st.number_input("請輸入重量 (g)", min_value=0.0, step=0.5)
 
 # 計算與輸出
 cleaned_food_option = str(food_option).strip()
@@ -39,12 +39,18 @@ st.write("比對結果：", matched_rows)
 if not matched_rows.empty:
     selected_row = matched_rows.iloc[0]
     try:
-        kcal = float(selected_row["熱量 (kcal/100g)"]) * weight / 100
+        kcal = float(selected_row["熱量"]) * weight / 100
     except (KeyError, ValueError, TypeError):
         kcal = 0.0
 
+    protein = None
+    if "蛋白質" in selected_row.index and float(selected_row["蛋白質"]) != 0:
+        protein = "蛋白質"
+    elif "粗蛋白" in selected_row.index:
+        protein = "粗蛋白"
     try:
-        protein = float(selected_row["蛋白質 (g/100g)"]) * weight / 100
+        # 有找到欄位才計算，沒找到就直接給 0
+        protein = float(selected_row[protein]) * weight / 100
     except (KeyError, ValueError, TypeError):
         protein = 0.0
 else:
