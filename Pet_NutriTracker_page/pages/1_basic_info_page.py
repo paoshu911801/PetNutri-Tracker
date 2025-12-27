@@ -3,6 +3,14 @@ from datetime import date
 import streamlit as st
 import pandas as pd
 import gspread
+from oauth2client.service_account import ServiceAccountCredentials
+scope = [
+    "https://spreadsheets.google.com/feeds",
+    "https://www.googleapis.com/auth/drive"
+]
+creds = ServiceAccountCredentials.from_json_keyfile_name("pet-nutritracker-0106a61c096f.json", scope)
+client = gspread.authorize(creds)
+sheet = client.open('Pet_NutriTracker_Member').worksheet("member_data")
 
 
 st.title('Pet Nutri Tracker｜基本資料輸入')
@@ -61,7 +69,7 @@ with st.form('Info'):
 #寵物info表
     #with st.form('pet_info'):
 #寵物資料輸入｜姓名
-        pet_name = st.text_input('Name', key = 'pet_name')
+        pet_name = st.text_input('Pet Name', key = 'pet_name')
 
 #寵物資料輸入｜性別
         pet_options = ["which gender", "Male", "Female", 'Prefer not to say']
@@ -128,6 +136,6 @@ with st.form('Info'):
         st.write('Diet:', pet_diet)
         st.write('Activity Level', pet_activity)
 
-row = [name, gender_select, birth_date, email, pet_name, pet_gender_select, pet_birth_date, pet_breed, pet_weight, pet_color, pet_diet, pet_activity]
+row = [name, gender_select, birth_date.strftime("%Y-%m-%d"), email, pet_name, pet_gender_select, pet_birth_date.strftime("%Y-%m-%d"), pet_breed, pet_weight, pet_color, pet_diet, pet_activity]
 sheet.append_row(row)
 st.success('已儲存到Google Sheets!')
