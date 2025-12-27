@@ -5,13 +5,13 @@ from datetime import date
 st.title('Pet Nutri Tracker｜基本資料輸入')
 
 #分兩欄位
-col1, col2 = st.columns(2)
+#col1, col2 = st.columns(2)
 
-with col1:
-    st.write('這裡填您的資料', key = 'user_title')
+#with col1:
+    #st.write('這裡填您的資料', key = 'user_title')
 
 #使用者info表
-    with st.form('Human_Info'):
+with st.form('Info'):
 #使用者資料輸入｜姓名
         name = st.text_input('Name', key = 'user_name')
 
@@ -26,12 +26,12 @@ with col1:
 #設定起始與最後日期
         min_date = date(1925, 1, 1)
         max_date = date.today()
-#日期輸入零件
+#日期輸入
         birth_date = st.date_input(
-            label = "Please select your date of birth",
-            value = default_date,
-            min_value = min_date,
-            max_value  =max_date
+                label = "Please select your date of birth",
+                value = default_date,
+                min_value = min_date,
+                max_value  =max_date
         )
 #write生日
         st.write("Your Birthday is:", birth_date, key = 'user_birth')
@@ -40,19 +40,23 @@ with col1:
         email = st.text_input("Your Email", key = 'user_mail')
 
 #按送出鈕(Human)
-        user_submitted = st.form_submit_button("Send")
+        #user_submitted = st.form_submit_button("Send")
 
-    if user_submitted:
-        st.write("Name:", name)
-        st.write("Gender:", gender_select)
-        st.write("Date of Birth:", birth_date)
-        st.write('Email', email)
+    #if user_submitted:
+       #st.write("Name:", name)
+        #st.write("Gender:", gender_select)
+        #st.write("Date of Birth:", birth_date)
+        #st.write('Email:', email)
 
-with col2:
-    st.write('這裡填狗勾的資料', key = 'pet_title')
+       # row = [name, gender_select, birth_date, email]
+       # sheet.append_row(row)
+       # st.success('已儲存到Google Sheets!')
+
+#with col2:
+    #st.write('這裡填狗勾的資料', key = 'pet_title')
 
 #寵物info表
-    with st.form('pet_info'):
+    #with st.form('pet_info'):
 #寵物資料輸入｜姓名
         pet_name = st.text_input('Name', key = 'pet_name')
 
@@ -68,10 +72,10 @@ with col2:
         pet_max_date = date.today()
 #日期輸入零件
         pet_birth_date = st.date_input(
-            label = "Please select baby\'s date of birth",
-            value = default_pet_date,
-            min_value = pet_min_date,
-            max_value  = pet_max_date
+                label = "Please select baby\'s date of birth",
+                value = default_pet_date,
+                min_value = pet_min_date,
+                max_value  = pet_max_date
         )
 #write生日
         st.write("Baby\'s Birthday is:", pet_birth_date, key = 'pet_birth')
@@ -99,24 +103,28 @@ with col2:
 
 #每日活動量說明
         pet_activity_instruction = st.markdown(
-            "低活動量：室內為主，每日短暫散步少於1小時，可能有肥胖傾向或老年犬。\n  "
-            "中活動量：每日散步1-3小時，體態平衡。\n  "
-            "高活動量：每日劇烈運動超過3小時，如跑步或敏捷訓練。"
+                "低活動量：室內為主，每日短暫散步少於1小時，可能有肥胖傾向或老年犬。\n  "
+                "中活動量：每日散步1-3小時，體態平衡。\n  "
+                "高活動量：每日劇烈運動超過3小時，如跑步或敏捷訓練。"
         )
 
 #按送出鈕(Pet)
         pet_submitted = st.form_submit_button("Send")
 
-    if pet_submitted:
-        st.write("Baby\'s Name:", pet_name)
-        st.write("Baby\'s Gender:", pet_gender_select)
-        st.write("Baby\'s Date of Birth:", pet_birth_date)
+        if pet_submitted:
+                st.write("Baby\'s Name:", pet_name)
+                st.write("Baby\'s Gender:", pet_gender_select)
+                st.write("Baby\'s Date of Birth:", pet_birth_date)
         if pet_breed == 'Others':
-            other_breed = st.text_input('Please specify the breed')
-            st.write('Breed:', other_breed)
+                other_breed = st.text_input('Please specify the breed')
+                st.write('Breed:', other_breed)
         else:
                 st.write('Breed:', pet_breed)
         st.write('Weight:', pet_weight)
         st.write('Skin Color:', pet_color)
         st.write('Diet:', pet_diet)
         st.write('Activity Level', pet_activity)
+
+row = [name, gender_select, birth_date, email, pet_name, pet_gender_select, pet_birth_date, pet_breed, pet_weight, pet_color, pet_diet, pet_activity]
+sheet.append_row(row)
+st.success('已儲存到Google Sheets!')
