@@ -1,6 +1,9 @@
+from datetime import date
+
 import streamlit as st
 import pandas as pd
-from datetime import date
+import gspread
+
 
 st.title('Pet Nutri Tracker｜基本資料輸入')
 
@@ -103,8 +106,8 @@ with st.form('Info'):
 
 #每日活動量說明
         pet_activity_instruction = st.markdown(
-                "低活動量：室內為主，每日短暫散步少於1小時，可能有肥胖傾向或老年犬。\n  "
-                "中活動量：每日散步1-3小時，體態平衡。\n  "
+                "低活動量：室內為主，每日短暫散步少於1小時，可能有肥胖傾向或老年犬。 \n"
+                "中活動量：每日散步1-3小時，體態平衡。 \n"
                 "高活動量：每日劇烈運動超過3小時，如跑步或敏捷訓練。"
         )
 
